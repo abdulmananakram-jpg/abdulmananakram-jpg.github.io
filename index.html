@@ -1,3 +1,217 @@
+
+Claude is responding
+
+index.html
+html
+
+
+pdfReg. No: CIIT/SP24-BSE-062/SWLName: ABDUL MANANSemester: Spring 2024Father Name: MUHAMMAD AKRAMProgram:BSE (Bachelor of Science in Software Engineering) Course No Course Title Credit Marks L.G. G.P. CSC101 Applications of Information and Communication Technologies 3 75 B+
+
+pasted
+
+index . html ma jo chiza nahi ha wo add kar da
+
+8:22 PM
+
+Viewed 3 files
+Viewed 3 files
+Ab mujhe pura picture clear ho gaya. Jo cheezein document mein hain lekin HTML mein nahi hain, wo hain:
+
+Kissan Bazar project — bilkul missing hai projects section se
+Academic Transcript / CGPA section — 4 semesters ki detail nahi hai
+Laravel, PHP, AJAX, Dart, Firebase — skills/services mein nahi hain
+Mobile App Development service — missing hai
+React.js, TypeScript, Supabase — tech stack mein nahi
+CGPA 3.16 — hero stats ya about mein mention nahi
+
+Edited 6 files, ran a command
+Edited 6 files, ran a command
+
+Copy file to working directory for editing
+
+Script
+
+Add Kissan Bazar project card after FitPose AI card
+
+index.html
++9
+-4
+
+Add Mobile App Development service card
+
+index.html
++12
+-2
+
+Add missing technologies to tag cloud
+
+index.html
++1
+-1
+
+Add Mobile Development and Laravel skill bars
+
+index.html
++9
+-7
+
+Add CGPA achievement card and update hero stats
+
+index.html
++4
+-4
+
+Update hero card stats to match new numbers
+
+index.html
++4
+-4
+Done
+Now let me add the Academic Transcript section before the footer:
+
+
+Edited 3 files, ran a command, read a file
+Edited 3 files, ran a command, read a file
+Updated ho gai! Ye cheezein add ki hain jo pehle missing thin:
+
+Projects:
+
+✅ Kissan Bazar — React.js, Supabase, Drizzle ORM, Clerk Auth, Python scraper — Project 04 ke tor par add
+Services:
+
+✅ Mobile App Development — Flutter, Dart, Firebase
+✅ Full-Stack Web (Laravel) — PHP, Laravel, AJAX, Bootstrap
+Skills:
+
+✅ Laravel/PHP aur Flutter/Dart — nayi skill bars ke sath
+✅ Tag cloud mein: PHP, Dart, TypeScript, Laravel, Flutter, AJAX, React.js, Firebase, Supabase — sab add
+Hero Stats:
+
+✅ Projects: 5+ → 6+
+✅ CGPA 3.16 ab hero stats aur card mein visible
+Transcript Section (bilkul naya):
+
+✅ Sab 4 semesters ki detail — courses, CGPA, trend
+✅ Upward trend highlight: 2.89 → 2.85 → 3.09 → 3.16
+✅ Nav mein bhi "Transcript" link add
+
+Index
+Code · HTML 
+is ki ek professional cv bana da ab
+
+8:25 PM
+
+Working
+Working
+
+Reading the docx skill
+
+Install docx npm package
+
+Script
+
+Creating professional CV for Abdul Manan Akram
+javascript
+
+const {
+  Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell,
+  AlignmentType, BorderStyle, WidthType, ShadingType, VerticalAlign,
+  LevelFormat, ExternalHyperlink, TabStopType, TabStopPosition
+} = require('docx');
+const fs = require('fs');
+
+// ── COLORS ──
+const NAVY   = "0A1628";
+const BLUE   = "1D4ED8";
+const GRAY   = "4B5563";
+const LGRAY  = "9CA3AF";
+const WHITE  = "FFFFFF";
+const BGROW  = "EFF6FF";   // light blue row bg
+const BGALT  = "F9FAFB";   // alternate row
+const GREEN  = "16A34A";
+
+// ── HELPERS ──
+const noBorder = { style: BorderStyle.NONE, size: 0, color: WHITE };
+const noBorders = { top: noBorder, bottom: noBorder, left: noBorder, right: noBorder };
+
+function hRule(color = BLUE, space = 1, size = 12) {
+  return new Paragraph({
+    spacing: { before: 0, after: 0 },
+    border: { bottom: { style: BorderStyle.SINGLE, size, color, space } }
+  });
+}
+
+function sectionHeader(text) {
+  return [
+    new Paragraph({
+      spacing: { before: 240, after: 60 },
+      children: [
+        new TextRun({ text, font: "Arial", size: 24, bold: true, color: NAVY, allCaps: true, characterSpacing: 40 })
+      ],
+      border: { bottom: { style: BorderStyle.SINGLE, size: 8, color: BLUE, space: 2 } }
+    })
+  ];
+}
+
+function jobEntry(title, org, period, bullets) {
+  const rows = [
+    new Paragraph({
+      spacing: { before: 160, after: 30 },
+      tabStops: [{ type: TabStopType.RIGHT, position: 9360 }],
+      children: [
+        new TextRun({ text: title, font: "Arial", size: 22, bold: true, color: NAVY }),
+        new TextRun({ text: "\t", font: "Arial", size: 20 }),
+        new TextRun({ text: period, font: "Arial", size: 18, color: LGRAY, italics: true })
+      ]
+    }),
+    new Paragraph({
+      spacing: { before: 0, after: 60 },
+      children: [new TextRun({ text: org, font: "Arial", size: 20, color: BLUE, bold: true })]
+    }),
+  ];
+  bullets.forEach(b => {
+    rows.push(new Paragraph({
+      numbering: { reference: "bullets", level: 0 },
+      spacing: { before: 40, after: 40 },
+      children: [new TextRun({ text: b, font: "Arial", size: 20, color: GRAY })]
+    }));
+  });
+  return rows;
+}
+
+function projectEntry(num, title, tech, desc) {
+  return [
+    new Paragraph({
+      spacing: { before: 160, after: 30 },
+      children: [
+        new TextRun({ text: `${num}  `, font: "Arial", size: 18, color: LGRAY }),
+        new TextRun({ text: title, font: "Arial", size: 22, bold: true, color: NAVY }),
+        new TextRun({ text: `  —  ${tech}`, font: "Arial", size: 18, color: BLUE })
+      ]
+    }),
+    new Paragraph({
+      numbering: { reference: "bullets", level: 0 },
+      spacing: { before: 40, after: 40 },
+      children: [new TextRun({ text: desc, font: "Arial", size: 20, color: GRAY })]
+    })
+  ];
+}
+
+// ── TRANSCRIPT TABLE ──
+function semRow(sem, cgpa, courses, highlight) {
+  const bg = highlight ? BGROW : BGALT;
+  const cgpaColor = highlight ? GREEN : GRAY;
+  const border = { style: BorderStyle.SINGLE, size: 1, color: "E5E7EB" };
+  const borders = { top: border, bottom: border, left: border,
+
+
+
+
+Claude is AI and can make mistakes. Please double-check responses.
+
+
+raw
+Index · HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,12 +244,12 @@ html{scroll-behavior:smooth;}
   --shadow-lg:0 12px 48px rgba(29,78,216,.14);
 }
 body{font-family:var(--font);background:var(--white);color:var(--gray-800);overflow-x:hidden;line-height:1.6;}
-
+ 
 /* ── SCROLLBAR ── */
 ::-webkit-scrollbar{width:4px;}
 ::-webkit-scrollbar-track{background:var(--gray-100);}
 ::-webkit-scrollbar-thumb{background:var(--blue);border-radius:4px;}
-
+ 
 /* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:999;padding:0 6%;height:70px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--gray-200);transition:box-shadow .3s;}
 nav.shadow{box-shadow:var(--shadow);}
@@ -46,36 +260,36 @@ nav.shadow{box-shadow:var(--shadow);}
 .nav-menu a:hover{color:var(--blue);}
 .nav-hire{background:var(--blue);color:#fff;padding:.55rem 1.4rem;border-radius:50px;font-size:.85rem;font-weight:600;text-decoration:none;transition:all .2s;}
 .nav-hire:hover{background:#1a44c8;transform:translateY(-1px);box-shadow:0 4px 16px rgba(29,78,216,.3);}
-
+ 
 /* ── HERO ── */
 #hero{min-height:100vh;display:flex;align-items:center;background:linear-gradient(135deg,#f0f5ff 0%,#ffffff 50%,#fff8f3 100%);padding:6rem 6% 4rem;position:relative;overflow:hidden;}
 .hero-bg-circle{position:absolute;border-radius:50%;pointer-events:none;}
 .hero-bg-circle.c1{width:500px;height:500px;background:radial-gradient(circle,rgba(29,78,216,.06),transparent);top:-100px;right:-100px;}
 .hero-bg-circle.c2{width:300px;height:300px;background:radial-gradient(circle,rgba(249,115,22,.06),transparent);bottom:-50px;left:10%;}
-
+ 
 .hero-inner{max-width:1100px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr auto;gap:4rem;align-items:center;}
 .hero-left{animation:fadeUp .7s ease forwards;}
-
+ 
 .hero-tag{display:inline-flex;align-items:center;gap:.5rem;background:var(--blue-xl);color:var(--blue);padding:.4rem 1rem;border-radius:50px;font-size:.78rem;font-weight:600;margin-bottom:1.5rem;border:1px solid rgba(29,78,216,.15);}
 .hero-tag .dot{width:6px;height:6px;border-radius:50%;background:var(--blue);animation:blink 1.5s infinite;}
-
+ 
 .hero-name{font-size:clamp(2.8rem,6vw,4.5rem);font-weight:800;color:var(--navy);line-height:1.1;letter-spacing:-1px;margin-bottom:.6rem;}
 .hero-name .hi{color:var(--blue);}
 .hero-subtitle{font-family:var(--mono);font-size:1rem;color:var(--gray-600);margin-bottom:1.5rem;display:flex;align-items:center;gap:.5rem;}
 .hero-subtitle span{color:var(--orange);font-weight:500;}
 .hero-desc{font-size:1.05rem;color:var(--gray-600);max-width:520px;line-height:1.8;margin-bottom:2.5rem;}
-
+ 
 .hero-actions{display:flex;gap:1rem;flex-wrap:wrap;}
 .btn-main{background:var(--blue);color:#fff;padding:.85rem 2rem;border-radius:50px;font-size:.9rem;font-weight:700;text-decoration:none;transition:all .25s;display:inline-flex;align-items:center;gap:.5rem;}
 .btn-main:hover{background:#1a44c8;transform:translateY(-2px);box-shadow:0 8px 24px rgba(29,78,216,.3);}
 .btn-sec{background:var(--white);color:var(--navy);padding:.85rem 2rem;border-radius:50px;font-size:.9rem;font-weight:600;text-decoration:none;transition:all .25s;display:inline-flex;align-items:center;gap:.5rem;border:2px solid var(--gray-200);}
 .btn-sec:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-2px);}
-
+ 
 .hero-stats{display:flex;gap:2rem;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--gray-200);}
 .hstat-num{font-size:2rem;font-weight:800;color:var(--navy);line-height:1;}
 .hstat-num .accent{color:var(--blue);}
 .hstat-label{font-size:.75rem;color:var(--gray-400);font-weight:500;text-transform:uppercase;letter-spacing:.5px;margin-top:.2rem;}
-
+ 
 .hero-right{animation:fadeRight .8s ease forwards;}
 .hero-card{background:var(--white);border-radius:24px;padding:2rem;box-shadow:var(--shadow-lg);border:1px solid var(--gray-200);min-width:260px;}
 .hcard-avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--blue-l));display:flex;align-items:center;justify-content:center;font-size:1.8rem;font-weight:800;color:#fff;margin:0 auto 1rem;font-family:var(--font);}
@@ -86,7 +300,7 @@ nav.shadow{box-shadow:var(--shadow);}
 .hcs-val{font-size:1.3rem;font-weight:800;color:var(--blue);}
 .hcs-label{font-size:.68rem;color:var(--gray-400);font-weight:500;}
 .hcard-avail{margin-top:1rem;background:var(--orange-l);border:1px solid rgba(249,115,22,.2);border-radius:10px;padding:.7rem;text-align:center;font-size:.78rem;color:var(--orange);font-weight:600;display:flex;align-items:center;justify-content:center;gap:.5rem;}
-
+ 
 /* ── SECTIONS ── */
 section{padding:6rem 6%;}
 .sec-wrap{max-width:1100px;margin:0 auto;}
@@ -94,7 +308,7 @@ section{padding:6rem 6%;}
 .sec-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;color:var(--navy);letter-spacing:-.5px;margin-bottom:.6rem;}
 .sec-title em{color:var(--blue);font-style:normal;}
 .sec-desc{font-size:1rem;color:var(--gray-600);max-width:480px;line-height:1.75;margin-bottom:3.5rem;}
-
+ 
 /* ── SERVICES / WHAT I DO ── */
 #services{background:var(--gray-50);}
 .services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;}
@@ -109,7 +323,7 @@ section{padding:6rem 6%;}
 .svc-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem;}
 .svc-tag{font-size:.7rem;font-family:var(--mono);padding:.2rem .6rem;background:var(--blue-xl);color:var(--blue);border-radius:4px;font-weight:500;}
 .svc-tag.org{background:var(--orange-l);color:var(--orange);}
-
+ 
 /* ── PROJECTS ── */
 #projects{background:var(--white);}
 .proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
@@ -133,7 +347,7 @@ section{padding:6rem 6%;}
 .yt-badge{display:inline-flex;align-items:center;gap:.6rem;margin-top:1.3rem;padding:.6rem 1.1rem;background:rgba(249,115,22,.2);border:1px solid rgba(249,115,22,.35);border-radius:50px;font-size:.8rem;color:#ffb067;font-weight:600;}
 .yt-badge a{color:#ffb067;text-decoration:none;}
 .yt-badge a:hover{text-decoration:underline;}
-
+ 
 /* ── ABOUT / EXPERIENCE ── */
 #about{background:var(--gray-50);}
 .about-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:5rem;align-items:start;}
@@ -147,7 +361,7 @@ section{padding:6rem 6%;}
 .exp-block ul{list-style:none;display:flex;flex-direction:column;gap:.4rem;}
 .exp-block ul li{font-size:.88rem;color:var(--gray-600);padding-left:1.2rem;position:relative;}
 .exp-block ul li::before{content:'→';position:absolute;left:0;color:var(--blue);font-size:.75rem;}
-
+ 
 .about-right{display:flex;flex-direction:column;gap:1rem;}
 .about-right h3{font-size:1.2rem;font-weight:700;color:var(--navy);margin-bottom:.5rem;}
 .info-card{background:var(--white);border-radius:var(--radius);border:1px solid var(--gray-200);padding:1.5rem;transition:all .3s;}
@@ -158,7 +372,7 @@ section{padding:6rem 6%;}
 .intl-ico{font-size:2rem;flex-shrink:0;}
 .intl-card h4{font-size:.95rem;font-weight:700;color:var(--navy);margin-bottom:.25rem;}
 .intl-card p{font-size:.82rem;color:var(--gray-600);line-height:1.6;}
-
+ 
 /* ── SKILLS ── */
 #skills{background:var(--white);}
 .skills-layout{display:grid;grid-template-columns:1fr 2fr;gap:4rem;align-items:start;}
@@ -174,7 +388,7 @@ section{padding:6rem 6%;}
 .tag-cloud{display:flex;flex-wrap:wrap;gap:.5rem;}
 .tcloud-tag{font-size:.78rem;font-family:var(--mono);padding:.3rem .8rem;background:var(--gray-50);color:var(--gray-600);border:1px solid var(--gray-200);border-radius:50px;transition:all .2s;}
 .tcloud-tag:hover{background:var(--blue-xl);color:var(--blue);border-color:rgba(29,78,216,.2);}
-
+ 
 /* ── CERTS ── */
 #certs{background:var(--gray-50);}
 .certs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.2rem;}
@@ -184,7 +398,7 @@ section{padding:6rem 6%;}
 .cert-ico.org{background:var(--orange-l);}
 .cert-name{font-size:.92rem;font-weight:700;color:var(--navy);margin-bottom:.2rem;line-height:1.3;}
 .cert-org{font-size:.75rem;color:var(--gray-400);font-family:var(--mono);}
-
+ 
 /* ── CONTACT ── */
 #contact{background:var(--white);}
 .contact-layout{display:grid;grid-template-columns:1fr 1.1fr;gap:5rem;align-items:start;}
@@ -194,7 +408,7 @@ section{padding:6rem 6%;}
 .clink-ico{width:44px;height:44px;border-radius:10px;background:var(--blue-xl);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
 .clink-lbl{font-size:.68rem;color:var(--gray-400);font-family:var(--mono);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:.15rem;}
 .clink-val{font-size:.9rem;font-weight:600;color:var(--navy);}
-
+ 
 .contact-cta{background:linear-gradient(135deg,#0a1628 0%,#1d4ed8 100%);border-radius:24px;padding:3.5rem;color:#fff;position:relative;overflow:hidden;}
 .contact-cta::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.05);}
 .contact-cta::after{content:'';position:absolute;bottom:-40px;left:-40px;width:150px;height:150px;border-radius:50%;background:rgba(249,115,22,.1);}
@@ -206,7 +420,7 @@ section{padding:6rem 6%;}
 .cta-svc{font-size:.72rem;font-family:var(--mono);padding:.28rem .75rem;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);border-radius:4px;border:1px solid rgba(255,255,255,.12);}
 .btn-orange{background:var(--orange);color:#fff;padding:.9rem 2.2rem;border-radius:50px;font-size:.9rem;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;transition:all .25s;}
 .btn-orange:hover{background:#ea6c0a;transform:translateY(-2px);box-shadow:0 8px 24px rgba(249,115,22,.4);}
-
+ 
 /* ── FOOTER ── */
 footer{background:var(--navy);padding:3rem 6%;color:rgba(255,255,255,.5);}
 .foot-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
@@ -216,18 +430,18 @@ footer{background:var(--navy);padding:3rem 6%;color:rgba(255,255,255,.5);}
 .foot-links a{font-size:.8rem;color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s;}
 .foot-links a:hover{color:#fff;}
 .foot-copy{font-size:.78rem;color:rgba(255,255,255,.3);}
-
+ 
 /* ── REVEAL ── */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease;}
 .reveal.in{opacity:1;transform:none;}
 .reveal-r{opacity:0;transform:translateX(24px);transition:opacity .65s ease,transform .65s ease;}
 .reveal-r.in{opacity:1;transform:none;}
-
+ 
 /* ── ANIMATIONS ── */
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 @keyframes fadeRight{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-
+ 
 /* ── MOBILE ── */
 @media(max-width:900px){
   .hero-inner,.about-grid,.contact-layout,.skills-layout{grid-template-columns:1fr;}
@@ -240,7 +454,7 @@ footer{background:var(--navy);padding:3rem 6%;color:rgba(255,255,255,.5);}
 </style>
 </head>
 <body>
-
+ 
 <!-- NAV -->
 <nav id="nav">
   <a href="#hero" class="logo">Manan<span>.dev</span></a>
@@ -249,11 +463,12 @@ footer{background:var(--navy);padding:3rem 6%;color:rgba(255,255,255,.5);}
     <a href="#projects">Projects</a>
     <a href="#about">About</a>
     <a href="#skills">Skills</a>
+    <a href="#transcript">Transcript</a>
     <a href="#contact">Contact</a>
     <a href="mailto:abdulmananakram777@gmail.com" class="nav-hire">Hire Me →</a>
   </div>
 </nav>
-
+ 
 <!-- HERO -->
 <section id="hero">
   <div class="hero-bg-circle c1"></div>
@@ -271,9 +486,9 @@ footer{background:var(--navy);padding:3rem 6%;color:rgba(255,255,255,.5);}
         <a href="#contact" class="btn-sec">Let's Talk</a>
       </div>
       <div class="hero-stats">
-        <div><div class="hstat-num"><span class="accent">5</span>+</div><div class="hstat-label">Projects Built</div></div>
+        <div><div class="hstat-num"><span class="accent">6</span>+</div><div class="hstat-label">Projects Built</div></div>
+        <div><div class="hstat-num"><span class="accent">3.16</span></div><div class="hstat-label">Current CGPA</div></div>
         <div><div class="hstat-num"><span class="accent">1</span></div><div class="hstat-label">Int'l Client 🌍</div></div>
-        <div><div class="hstat-num"><span class="accent">2</span></div><div class="hstat-label">Certifications</div></div>
         <div><div class="hstat-num"><span class="accent">2028</span></div><div class="hstat-label">Graduating</div></div>
       </div>
     </div>
@@ -283,17 +498,17 @@ footer{background:var(--navy);padding:3rem 6%;color:rgba(255,255,255,.5);}
         <div class="hcard-name">Abdul Manan Akram</div>
         <div class="hcard-role">Software Engineering Student</div>
         <div class="hcard-stats">
-          <div class="hcs"><div class="hcs-val">5+</div><div class="hcs-label">Projects</div></div>
-          <div class="hcs"><div class="hcs-val">8+</div><div class="hcs-label">Skills</div></div>
-          <div class="hcs"><div class="hcs-val">1</div><div class="hcs-label">Int'l Client</div></div>
-          <div class="hcs"><div class="hcs-val">2</div><div class="hcs-label">Certs</div></div>
+          <div class="hcs"><div class="hcs-val">6+</div><div class="hcs-label">Projects</div></div>
+          <div class="hcs"><div class="hcs-val">12+</div><div class="hcs-label">Skills</div></div>
+          <div class="hcs"><div class="hcs-val">3.16</div><div class="hcs-label">CGPA</div></div>
+          <div class="hcs"><div class="hcs-val">🌍</div><div class="hcs-label">Int'l Client</div></div>
         </div>
         <div class="hcard-avail">✅ Available for Hire</div>
       </div>
     </div>
   </div>
 </section>
-
+ 
 <!-- SERVICES -->
 <section id="services">
   <div class="sec-wrap">
@@ -322,7 +537,17 @@ footer{background:var(--navy);padding:3rem 6%;color:rgba(255,255,255,.5);}
         <div class="svc-tags"><span class="svc-tag">Java</span><span class="svc-tag">Java Swing</span><span class="svc-tag">OOP</span><span class="svc-tag">MySQL</span></div>
       </div>
       <div class="svc-card reveal">
-        <div class="svc-ico">🗄️</div>
+        <div class="svc-ico">📱</div>
+        <h3>Mobile App Development</h3>
+        <p>Cross-platform mobile apps using Flutter & Dart with Firebase backend integration.</p>
+        <div class="svc-tags"><span class="svc-tag">Flutter</span><span class="svc-tag">Dart</span><span class="svc-tag">Firebase</span></div>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-ico">⚙️</div>
+        <h3>Full-Stack Web (Laravel)</h3>
+        <p>Dynamic web applications with PHP & Laravel backend, AJAX-powered interactions, and Bootstrap UI.</p>
+        <div class="svc-tags"><span class="svc-tag">Laravel</span><span class="svc-tag">PHP</span><span class="svc-tag">AJAX</span><span class="svc-tag">Bootstrap</span></div>
+      </div>
         <h3>Database Design</h3>
         <p>MySQL schema design, normalization, and optimized queries for any project.</p>
         <div class="svc-tags"><span class="svc-tag">MySQL</span><span class="svc-tag">SQL</span><span class="svc-tag">Schema Design</span></div>
@@ -342,7 +567,7 @@ footer{background:var(--navy);padding:3rem 6%;color:rgba(255,255,255,.5);}
     </div>
   </div>
 </section>
-
+ 
 <!-- PROJECTS -->
 <section id="projects">
   <div class="sec-wrap">
@@ -352,7 +577,7 @@ footer{background:var(--navy);padding:3rem 6%;color:rgba(255,255,255,.5);}
       <p class="sec-desc">Real projects built with real skills — from AI to IoT to desktop software.</p>
     </div>
     <div class="proj-grid">
-
+ 
       <div class="proj-card proj-featured reveal">
         <div class="proj-num">⭐ Featured Project</div>
         <h3>Smoke Detection & Plant Watering System</h3>
@@ -362,31 +587,36 @@ footer{background:var(--navy);padding:3rem 6%;color:rgba(255,255,255,.5);}
         <p>Smart IoT system integrating real-time smoke detection with automated plant watering. Sensors, actuators, and network devices configured for event-driven automation — simulating a real smart-home environment. Recognized and featured by university instructor.</p>
         <div class="yt-badge">⭐ Featured on YouTube by Sir Usman Nasir — <a href="https://youtu.be/MdQF8udQMIE?si=hFFPdw_j49tknOVk" target="_blank">Watch here →</a></div>
       </div>
-
+ 
       <div class="proj-card reveal">
         <div class="proj-top"><div class="proj-num">Project 01</div><h3>University Management System</h3><div class="proj-pills"><span class="pill">Java</span><span class="pill">Java Swing</span><span class="pill">OOP</span><span class="pill">MySQL</span></div></div>
         <div class="proj-body"><p>Full desktop app managing students, faculty, courses, and grades. GUI built with Java Swing, normalized MySQL database, complete OOP architecture with inheritance and polymorphism.</p></div>
       </div>
-
+ 
       <div class="proj-card reveal">
         <div class="proj-top"><div class="proj-num">Project 02</div><h3>UMS — Terminal Based (C++)</h3><div class="proj-pills"><span class="pill">C++</span><span class="pill">Data Structures</span><span class="pill">OOP</span><span class="pill">CLI</span></div></div>
         <div class="proj-body"><p>Terminal-based system using Linked Lists, Stacks, Queues, and Binary Trees. Full CRUD operations via interactive command-line with clean, modular C++ architecture.</p></div>
       </div>
-
+ 
       <div class="proj-card reveal">
         <div class="proj-top orange"><div class="proj-num">Project 03</div><h3>FitPose AI — Fitness App</h3><div class="proj-pills"><span class="pill org">Python</span><span class="pill org">OpenCV</span><span class="pill org">MediaPipe</span><span class="pill org">AI</span></div></div>
         <div class="proj-body"><p>Real-time AI fitness app detecting body poses, counting exercise reps, and giving live feedback. Uses Google MediaPipe for joint landmark tracking and angle analysis.</p></div>
       </div>
-
+ 
       <div class="proj-card reveal">
-        <div class="proj-top"><div class="proj-num">Project 04</div><h3>Java ChatBot</h3><div class="proj-pills"><span class="pill">Java</span><span class="pill">OOP</span><span class="pill">Pattern Matching</span></div></div>
+        <div class="proj-top orange"><div class="proj-num">Project 04</div><h3>Kissan Bazar — Agricultural Marketplace</h3><div class="proj-pills"><span class="pill org">React.js</span><span class="pill org">Supabase</span><span class="pill org">Python</span><span class="pill org">Clerk Auth</span><span class="pill org">Drizzle ORM</span></div></div>
+        <div class="proj-body"><p>Full-stack digital agricultural marketplace connecting farmers directly with buyers. Features AI-powered price scraping (Python), real-time listings, seller dashboard, and secure authentication. Group project with Allah Rakha (SP24-BSE-076).</p></div>
+      </div>
+ 
+      <div class="proj-card reveal">
+        <div class="proj-top"><div class="proj-num">Project 05</div><h3>Java ChatBot</h3><div class="proj-pills"><span class="pill">Java</span><span class="pill">OOP</span><span class="pill">Pattern Matching</span></div></div>
         <div class="proj-body"><p>Conversational chatbot with keyword-based pattern matching and dynamic response generation. Modular OOP class structure for easy extension of conversation flows.</p></div>
       </div>
-
+ 
     </div>
   </div>
 </section>
-
+ 
 <!-- ABOUT -->
 <section id="about">
   <div class="sec-wrap">
@@ -428,7 +658,7 @@ footer{background:var(--navy);padding:3rem 6%;color:rgba(255,255,255,.5);}
     </div>
   </div>
 </section>
-
+ 
 <!-- SKILLS -->
 <section id="skills">
   <div class="sec-wrap">
@@ -442,7 +672,7 @@ footer{background:var(--navy);padding:3rem 6%;color:rgba(255,255,255,.5);}
         <div class="skills-tags-section">
           <h4>All Technologies</h4>
           <div class="tag-cloud">
-            <span class="tcloud-tag">Java</span><span class="tcloud-tag">C++</span><span class="tcloud-tag">Python</span><span class="tcloud-tag">JavaScript</span><span class="tcloud-tag">HTML5</span><span class="tcloud-tag">CSS3</span><span class="tcloud-tag">SQL</span><span class="tcloud-tag">Django</span><span class="tcloud-tag">Bootstrap</span><span class="tcloud-tag">Java Swing</span><span class="tcloud-tag">OpenCV</span><span class="tcloud-tag">MediaPipe</span><span class="tcloud-tag">MySQL</span><span class="tcloud-tag">Git</span><span class="tcloud-tag">GitHub</span><span class="tcloud-tag">Cisco Packet Tracer</span><span class="tcloud-tag">Canva</span><span class="tcloud-tag">VS Code</span><span class="tcloud-tag">IntelliJ</span>
+            <span class="tcloud-tag">Java</span><span class="tcloud-tag">C++</span><span class="tcloud-tag">Python</span><span class="tcloud-tag">JavaScript</span><span class="tcloud-tag">HTML5</span><span class="tcloud-tag">CSS3</span><span class="tcloud-tag">SQL</span><span class="tcloud-tag">PHP</span><span class="tcloud-tag">Dart</span><span class="tcloud-tag">TypeScript</span><span class="tcloud-tag">Django</span><span class="tcloud-tag">Laravel</span><span class="tcloud-tag">Flutter</span><span class="tcloud-tag">Bootstrap</span><span class="tcloud-tag">AJAX</span><span class="tcloud-tag">React.js</span><span class="tcloud-tag">Java Swing</span><span class="tcloud-tag">OpenCV</span><span class="tcloud-tag">MediaPipe</span><span class="tcloud-tag">Firebase</span><span class="tcloud-tag">Supabase</span><span class="tcloud-tag">MySQL</span><span class="tcloud-tag">Git</span><span class="tcloud-tag">GitHub</span><span class="tcloud-tag">Cisco Packet Tracer</span><span class="tcloud-tag">Canva</span><span class="tcloud-tag">VS Code</span><span class="tcloud-tag">IntelliJ</span>
           </div>
         </div>
       </div>
@@ -453,6 +683,8 @@ footer{background:var(--navy);padding:3rem 6%;color:rgba(255,255,255,.5);}
           <div class="skill-row"><span class="skill-row-name">Python & AI</span><div class="skill-bar-wrap"><div class="skill-bar" data-w="78"></div></div><span class="skill-pct">78%</span></div>
           <div class="skill-row"><span class="skill-row-name">C++ & DSA</span><div class="skill-bar-wrap"><div class="skill-bar" data-w="75"></div></div><span class="skill-pct">75%</span></div>
           <div class="skill-row"><span class="skill-row-name">Database / SQL</span><div class="skill-bar-wrap"><div class="skill-bar" data-w="80"></div></div><span class="skill-pct">80%</span></div>
+          <div class="skill-row"><span class="skill-row-name">Laravel / PHP</span><div class="skill-bar-wrap"><div class="skill-bar" data-w="72"></div></div><span class="skill-pct">72%</span></div>
+          <div class="skill-row"><span class="skill-row-name">Flutter / Dart</span><div class="skill-bar-wrap"><div class="skill-bar" data-w="70"></div></div><span class="skill-pct">70%</span></div>
           <div class="skill-row"><span class="skill-row-name">Graphic Design</span><div class="skill-bar-wrap"><div class="skill-bar" data-w="70"></div></div><span class="skill-pct">70%</span></div>
           <div class="skill-row"><span class="skill-row-name">IoT / Networking</span><div class="skill-bar-wrap"><div class="skill-bar" data-w="68"></div></div><span class="skill-pct">68%</span></div>
         </div>
@@ -460,7 +692,7 @@ footer{background:var(--navy);padding:3rem 6%;color:rgba(255,255,255,.5);}
     </div>
   </div>
 </section>
-
+ 
 <!-- CERTS -->
 <section id="certs">
   <div class="sec-wrap">
@@ -476,7 +708,7 @@ footer{background:var(--navy);padding:3rem 6%;color:rgba(255,255,255,.5);}
     </div>
   </div>
 </section>
-
+ 
 <!-- CONTACT -->
 <section id="contact">
   <div class="sec-wrap">
@@ -498,7 +730,7 @@ footer{background:var(--navy);padding:3rem 6%;color:rgba(255,255,255,.5);}
           <div class="cta-title">Start a project with me today</div>
           <div class="cta-body">Whether it's a website, app, AI solution, or graphic design — I deliver quality work on time. Let's build something great.</div>
           <div class="cta-services">
-            <span class="cta-svc">Web Dev</span><span class="cta-svc">Python / AI</span><span class="cta-svc">Java Apps</span><span class="cta-svc">C++ / DSA</span><span class="cta-svc">Database</span><span class="cta-svc">IoT</span><span class="cta-svc">Graphic Design</span>
+            <span class="cta-svc">Web Dev</span><span class="cta-svc">Laravel / PHP</span><span class="cta-svc">Flutter / Mobile</span><span class="cta-svc">Python / AI</span><span class="cta-svc">Java Apps</span><span class="cta-svc">C++ / DSA</span><span class="cta-svc">Database</span><span class="cta-svc">IoT</span><span class="cta-svc">Graphic Design</span>
           </div>
           <a href="mailto:abdulmananakram777@gmail.com" class="btn-orange">📧 Send Me an Email</a>
         </div>
@@ -506,7 +738,65 @@ footer{background:var(--navy);padding:3rem 6%;color:rgba(255,255,255,.5);}
     </div>
   </div>
 </section>
-
+ 
+<!-- TRANSCRIPT -->
+<section id="transcript" style="background:var(--gray-50);">
+  <div class="sec-wrap">
+    <div class="reveal">
+      <div class="sec-tag">// academic record</div>
+      <h2 class="sec-title">Academic <em>Transcript</em></h2>
+      <p class="sec-desc">BS Software Engineering — COMSATS University Islamabad, Sahiwal Campus. Consistent upward CGPA trend across all semesters.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem;">
+ 
+      <div class="cert-card reveal" style="flex-direction:column;gap:.8rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-weight:700;color:var(--navy);">Spring 2024 — Sem 1</div>
+          <div style="font-family:var(--mono);font-size:.8rem;background:var(--blue-xl);color:var(--blue);padding:.2rem .7rem;border-radius:50px;font-weight:600;">CGPA 2.89</div>
+        </div>
+        <div style="font-size:.8rem;color:var(--gray-600);line-height:1.8;">
+          Applications of ICT · Discrete Structures · Functional English · Islamic Studies · Ideology & Constitution · Applied Physics
+        </div>
+      </div>
+ 
+      <div class="cert-card reveal" style="flex-direction:column;gap:.8rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-weight:700;color:var(--navy);">Fall 2024 — Sem 2</div>
+          <div style="font-family:var(--mono);font-size:.8rem;background:var(--blue-xl);color:var(--blue);padding:.2rem .7rem;border-radius:50px;font-weight:600;">CGPA 2.85</div>
+        </div>
+        <div style="font-size:.8rem;color:var(--gray-600);line-height:1.8;">
+          Programming Fundamentals · Software Engineering · Digital Logic Design · Professional Practices · Expository Writing · Entrepreneurship
+        </div>
+      </div>
+ 
+      <div class="cert-card reveal" style="flex-direction:column;gap:.8rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-weight:700;color:var(--navy);">Spring 2025 — Sem 3</div>
+          <div style="font-family:var(--mono);font-size:.8rem;background:#dcfce7;color:#16a34a;padding:.2rem .7rem;border-radius:50px;font-weight:600;">CGPA 3.09 ↑</div>
+        </div>
+        <div style="font-size:.8rem;color:var(--gray-600);line-height:1.8;">
+          OOP — A (4.0) · Database Systems · Calculus · Tech & Business Writing · Psychology · Civics
+        </div>
+      </div>
+ 
+      <div class="cert-card reveal" style="flex-direction:column;gap:.8rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-weight:700;color:var(--navy);">Fall 2025 — Sem 4</div>
+          <div style="font-family:var(--mono);font-size:.8rem;background:#dcfce7;color:#16a34a;padding:.2rem .7rem;border-radius:50px;font-weight:600;">CGPA 3.16 ↑</div>
+        </div>
+        <div style="font-size:.8rem;color:var(--gray-600);line-height:1.8;">
+          Data Structures · AI — A- · Computer Networks — A- · Information Security · Software Requirements Engineering
+        </div>
+      </div>
+ 
+    </div>
+    <div style="margin-top:1.5rem;padding:1.2rem 1.8rem;background:linear-gradient(135deg,#0a1628,#1d4ed8);border-radius:var(--radius);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;" class="reveal">
+      <div style="color:rgba(255,255,255,.7);font-size:.9rem;">📈 CGPA trend: <strong style="color:#fff;">2.89 → 2.85 → 3.09 → 3.16</strong> — Consistently improving each semester</div>
+      <div style="font-family:var(--mono);font-size:1rem;font-weight:700;color:#fff;background:rgba(255,255,255,.1);padding:.5rem 1.2rem;border-radius:50px;">Current: <span style="color:#6ee7b7;">3.16</span></div>
+    </div>
+  </div>
+</section>
+ 
 <!-- FOOTER -->
 <footer>
   <div class="foot-inner">
@@ -519,18 +809,18 @@ footer{background:var(--navy);padding:3rem 6%;color:rgba(255,255,255,.5);}
     </div>
   </div>
 </footer>
-
+ 
 <script>
 // Nav shadow on scroll
 const nav=document.getElementById('nav');
 window.addEventListener('scroll',()=>nav.classList.toggle('shadow',scrollY>40));
-
+ 
 // Reveal on scroll
 const obs=new IntersectionObserver(entries=>{
   entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),i*100);obs.unobserve(e.target);}});
 },{threshold:.1});
 document.querySelectorAll('.reveal,.reveal-r').forEach(el=>obs.observe(el));
-
+ 
 // Skill bars animate when visible
 const barObs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
@@ -547,3 +837,7 @@ if(skillsList)barObs.observe(skillsList);
 </script>
 </body>
 </html>
+ 
+
+
+
